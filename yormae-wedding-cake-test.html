@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 웨딩케이크 타입은? | 요르매플라워</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════ TOKENS ══════════ */
+    :root {
+      --cream:       #fdf8f3;
+      --blush:       #f5e8e2;
+      --rose:        #c9958a;
+      --rose-dark:   #a87060;
+      --sage:        #7a9a7a;
+      --sage-light:  #d4e2d4;
+      --charcoal:    #28201a;
+      --mid:         #5a4a42;
+      --light:       #9a8a82;
+      --border:      #e8ddd8;
+      --white:       #ffffff;
+    }
+
+    /* ══════════ RESET ══════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ══════════ BASE ══════════ */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    /* ══════════ SCREEN WRAPPER ══════════ */
+    .screen {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .screen { animation: fadeUp 0.45s ease both; }
+    .hidden { display: none !important; }
+
+    /* ══════════ BRAND HEADER ══════════ */
+    .brand {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .brand-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--light);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .brand-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .brand-rule::before,
+    .brand-rule::after {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--border);
+    }
+    .brand-rule span { font-size: 14px; }
+    .brand-sub {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--rose);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    /* ══════════ INTRO ══════════ */
+    .intro-hero { text-align: center; }
+    .intro-visual {
+      width: 120px;
+      height: 120px;
+      background: var(--blush);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      margin: 0 auto 28px;
+      border: 1px solid var(--border);
+    }
+    .intro-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+    .intro-title em { font-style: italic; color: var(--rose); }
+    .intro-desc {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .intro-chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .chip {
+      font-size: 12px;
+      color: var(--light);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+    }
+
+    /* ══════════ PRIMARY BUTTON ══════════ */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      background: var(--charcoal);
+      color: var(--white);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ══════════ PROGRESS BAR ══════════ */
+    .progress-wrap { margin-bottom: 36px; }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .progress-meta span {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--light);
+      text-transform: uppercase;
+    }
+    .progress-meta strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px;
+      color: var(--mid);
+      font-weight: 400;
+    }
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--rose);
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ══════════ QUESTION ══════════ */
+    #q-area { transition: opacity 0.3s ease, transform 0.3s ease; }
+    .q-emoji {
+      display: block;
+      text-align: center;
+      font-size: 38px;
+      margin-bottom: 14px;
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-weight: 600;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+    .q-hint {
+      font-size: 12px;
+      color: var(--light);
+      text-align: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+    }
+    .choices { display: flex; flex-direction: column; gap: 11px; }
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.18s;
+    }
+    .choice:hover {
+      border-color: var(--rose);
+      background: #fef6f4;
+      transform: translateX(5px);
+    }
+    .choice:active { transform: translateX(2px); }
+    .choice-alpha {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--blush);
+      color: var(--rose-dark);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .choice-ico { font-size: 18px; flex-shrink: 0; }
+    .choice-label { font-size: 13.5px; color: var(--mid); line-height: 1.55; flex: 1; }
+
+    /* ══════════ STEP DOTS ══════════ */
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 32px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.done { background: var(--rose); transform: scale(1.2); }
+    .dot.current { background: var(--rose-dark); }
+
+    /* ══════════ RESULT CARD ══════════ */
+    .r-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .r-card-top {
+      padding: 40px 28px 32px;
+      text-align: center;
+    }
+    .r-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--rose);
+      color: var(--white);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+    .r-visual {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .r-type { font-size: 11px; letter-spacing: 2px; color: var(--light); text-transform: uppercase; margin-bottom: 8px; }
+    .r-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+    .r-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .r-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    .r-body { padding: 28px; }
+    .r-section { margin-bottom: 24px; }
+    .r-section:last-child { margin-bottom: 0; }
+    .r-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 10px;
+    }
+    .r-desc { font-size: 14px; color: var(--mid); line-height: 1.85; }
+    .r-why {
+      background: var(--cream);
+      border-left: 3px solid var(--rose);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 16px;
+      font-size: 13.5px;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+    .r-flowers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .r-flower {
+      font-size: 12px;
+      padding: 5px 12px;
+      background: var(--sage-light);
+      color: #3a6a3a;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .r-spec {
+      font-size: 12.5px;
+      color: var(--light);
+      line-height: 1.7;
+      padding: 12px 14px;
+      background: #f8f5f2;
+      border-radius: 8px;
+    }
+
+    /* ══════════ SCORE BAR ══════════ */
+    .r-scores { margin-bottom: 20px; }
+    .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+    .score-name { font-size: 12px; color: var(--mid); min-width: 90px; }
+    .score-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .score-bar { height: 100%; border-radius: 3px; transition: width 0.8s cubic-bezier(.4,0,.2,1); }
+    .score-val { font-size: 11px; color: var(--light); min-width: 24px; text-align: right; }
+
+    /* ══════════ CTA BOX ══════════ */
+    .cta-box {
+      background: var(--blush);
+      border-radius: 14px;
+      padding: 22px 24px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    .cta-box p { font-size: 13.5px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; }
+    .cta-box strong { color: var(--rose-dark); }
+    .btn-cta {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--rose-dark);
+      color: var(--white);
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .btn-cta:hover { background: var(--charcoal); }
+
+    /* ══════════ CONTACT MODAL ══════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(40,32,26,0.5);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 100;
+      animation: fadeUp 0.3s ease;
+    }
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px 28px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    .modal-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+    .modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .modal p { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 20px; }
+    .modal-contact {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .modal-contact p { margin: 0; font-size: 13px; }
+    .modal-contact strong { color: var(--rose-dark); font-size: 14px; display: block; margin-bottom: 4px; }
+    .modal-close {
+      font-size: 13px;
+      color: var(--light);
+      text-decoration: underline;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* ══════════ RETRY BUTTON ══════════ */
+    .btn-retry {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--light);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-retry:hover { border-color: var(--mid); color: var(--mid); }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width: 480px) {
+      .intro-title { font-size: 25px; }
+      .q-text { font-size: 18px; }
+      .r-title { font-size: 22px; }
+      .r-card-top { padding: 28px 20px 24px; }
+      .r-body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     INTRO SCREEN
+     ════════════════════════════════════ -->
+<div class="screen" id="s-intro">
+  <div class="brand">
+    <span class="brand-logo">Yormae Flower</span>
+    <div class="brand-rule"><span>🌸</span></div>
+    <span class="brand-sub">생화 웨딩케이크 전문</span>
+  </div>
+
+  <div class="intro-hero">
+    <div class="intro-visual">🎂</div>
+    <h1 class="intro-title">
+      나의 웨딩케이크<br>
+      <em>타입</em>은 무엇일까요?
+    </h1>
+    <p class="intro-desc">
+      5가지 질문에 솔직하게 답해보세요.<br>
+      당신의 감성과 취향에 꼭 맞는<br>
+      생화 웨딩케이크 스타일을 찾아드릴게요.
+    </p>
+    <div class="intro-chips">
+      <span class="chip">🕐 약 2분 소요</span>
+      <span class="chip">❓ 질문 5개</span>
+      <span class="chip">🌹 케이크 타입 4가지</span>
+    </div>
+    <button class="btn-primary" onclick="startQuiz()">테스트 시작하기 →</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     QUIZ SCREEN
+     ════════════════════════════════════ -->
+<div class="screen hidden" id="s-quiz">
+  <div class="brand">
+    <span class="brand-logo">Yormae Flower</span>
+    <div class="brand-rule"><span>🌸</span></div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span>Progress</span>
+      <strong id="p-num">1 / 5</strong>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="p-fill" style="width:20%"></div>
+    </div>
+  </div>
+
+  <div id="q-area"></div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<!-- ════════════════════════════════════
+     RESULT SCREEN
+     ════════════════════════════════════ -->
+<div class="screen hidden" id="s-result">
+  <div class="brand">
+    <span class="brand-logo">Yormae Flower</span>
+    <div class="brand-rule"><span>🌸</span></div>
+  </div>
+  <div id="r-area"></div>
+</div>
+
+<!-- ════════════════════════════════════
+     CONTACT MODAL
+     ════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal" onclick="closeModal(event)">
+  <div class="modal">
+    <span class="modal-icon">🌸</span>
+    <h3>요르매플라워 상담 문의</h3>
+    <p>결과 화면을 캡처해서 아래 채널로<br>연락 주시면 맞춤 케이크를 상담해 드려요!</p>
+    <div class="modal-contact">
+      <strong>📱 카카오톡 채널</strong>
+      <p>@요르매플라워</p>
+    </div>
+    <div class="modal-contact" style="margin-bottom:16px;">
+      <strong>📸 인스타그램 DM</strong>
+      <p>@yormae_flower</p>
+    </div>
+    <button class="modal-close" onclick="document.getElementById('modal').classList.add('hidden')">닫기</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════
+// QUIZ DATA
+// ════════════════════════════════════
+const QUESTIONS = [
+  {
+    emoji: "💍",
+    text: "꿈꾸는 결혼식의\n분위기는 어떤 모습인가요?",
+    hint: "상상 속 결혼식 장면을 떠올려 보세요",
+    choices: [
+      { ico: "🏛️", text: "호텔 볼룸의 우아하고 클래식한 분위기", type: "classic" },
+      { ico: "🖼️", text: "갤러리 같은 깔끔하고 세련된 모던 스타일", type: "modern" },
+      { ico: "🌿", text: "야외·가든파티 같은 싱그러운 자연 분위기", type: "botanic" },
+      { ico: "🌙", text: "감각적이고 드라마틱한 무드 웨딩", type: "moody" }
+    ]
+  },
+  {
+    emoji: "💐",
+    text: "신부 부케로 고른다면\n어떤 스타일인가요?",
+    hint: "손에 들 부케를 상상해 보세요",
+    choices: [
+      { ico: "🌹", text: "장미·작약으로 가득한 풍성한 라운드 부케", type: "classic" },
+      { ico: "🤍", text: "흰 꽃 한두 가지, 단정하고 심플한 미니 부케", type: "modern" },
+      { ico: "🌾", text: "야생화·허브·유칼립투스 믹스 내추럴 부케", type: "botanic" },
+      { ico: "🍷", text: "버건디·딥 플럼 꽃으로 드라마틱한 드롭 부케", type: "moody" }
+    ]
+  },
+  {
+    emoji: "🎂",
+    text: "웨딩케이크에서 가장 중요하게\n생각하는 것은?",
+    hint: "케이크를 고를 때 가장 먼저 보는 것",
+    choices: [
+      { ico: "✨", text: "화려하고 인상적인 비주얼, 하객이 감탄하는 외관", type: "classic" },
+      { ico: "💎", text: "군더더기 없이 세련된 완성도와 고급스러운 마감", type: "modern" },
+      { ico: "🌱", text: "자연스럽고 따뜻한 감성, 생화의 싱그러운 느낌", type: "botanic" },
+      { ico: "🎨", text: "남들과 다른 독창적 디자인, 오래 기억에 남는 개성", type: "moody" }
+    ]
+  },
+  {
+    emoji: "🎨",
+    text: "웨딩 컬러 팔레트로\n어떤 조합을 선택하겠어요?",
+    hint: "드레스·꽃·인테리어 모두 포함해서요",
+    choices: [
+      { ico: "🥂", text: "아이보리·골드·로즈 골드 — 클래식하고 우아한", type: "classic" },
+      { ico: "🤍", text: "화이트·실버·크리스털 — 깨끗하고 미니멀한", type: "modern" },
+      { ico: "🌿", text: "세이지 그린·피치·코랄 — 자연스럽고 화사한", type: "botanic" },
+      { ico: "🍷", text: "버건디·와인·딥 플럼 — 무드있고 감각적인", type: "moody" }
+    ]
+  },
+  {
+    emoji: "✈️",
+    text: "신혼여행지를 고른다면\n어디로 가고 싶나요?",
+    hint: "당신의 취향을 가장 잘 드러내는 여행지",
+    choices: [
+      { ico: "🗼", text: "파리·프라하 — 유럽의 클래식하고 고전적인 아름다움", type: "classic" },
+      { ico: "⛩️", text: "일본·북유럽 — 감각적이고 정갈한 미니멀 감성", type: "modern" },
+      { ico: "🌴", text: "발리·하와이 — 자연 속 여유로운 휴양지", type: "botanic" },
+      { ico: "🏙️", text: "뉴욕·런던 — 트렌디하고 세련된 도시 여행", type: "moody" }
+    ]
+  }
+];
+
+// ════════════════════════════════════
+// RESULT TYPES
+// ════════════════════════════════════
+const RESULTS = {
+  classic: {
+    typeLabel:   "클래식 로맨틱 타입",
+    title:       "그랜드 플로럴\n티어드 케이크",
+    tagline:     '"화려함 속에 담긴 영원한 우아함"',
+    visual:      "🌹",
+    visualBg:    "#fdf0ec",
+    description: "당신은 전통과 품격을 사랑하는 클래식 로맨티스트입니다. 2~3단 티어드 케이크에 장미, 작약, 라눙쿨러스를 풍성하게 장식한 그랜드 플로럴 케이크가 당신의 결혼식을 완성해 줄 거예요.",
+    why:         "호텔 볼룸의 웅장한 분위기와 가장 잘 어울리는 스타일이에요. 높이감 있는 티어드 구조는 하객에게 강렬한 인상을 남기고, 풍성한 생화 장식이 로맨틱한 감성을 극대화합니다.",
+    flowers:     ["🌹 장미", "🌸 작약", "💐 라눙쿨러스", "🌼 에델바이스"],
+    spec:        "2~3단 티어드 구조  ·  아이보리 크림 베이스  ·  풍성한 생화 크라운",
+    barColor:    "#c9958a"
+  },
+  modern: {
+    typeLabel:   "모던 미니멀 타입",
+    title:       "슬릭 미니멀\n생화 케이크",
+    tagline:     '"단순함이 가장 고급스럽다"',
+    visual:      "🤍",
+    visualBg:    "#f5f5f5",
+    description: "당신은 과하지 않은 세련됨을 추구하는 미니멀리스트입니다. 매끄럽게 마감된 화이트 크림에 생화 한두 송이를 포인트로 올린 슬릭 미니멀 케이크가 당신만의 감각을 완성해 줄 거예요.",
+    why:         "군더더기 없는 디자인이 오히려 더 럭셔리하게 보이는 마법! 심플한 케이크 위 생화 한 송이의 대비가 극적인 아름다움을 만들어요. 갤러리 같은 모던 웨딩 공간에 완벽하게 어울립니다.",
+    flowers:     ["🤍 화이트 라눙쿨러스", "🌿 유칼립투스", "💚 그린 세이지", "🌾 팜스"],
+    spec:        "싱글 레이어  ·  매끄러운 화이트 크림  ·  미니멀 생화 포인트",
+    barColor:    "#8a9a9a"
+  },
+  botanic: {
+    typeLabel:   "보타닉 내추럴 타입",
+    title:       "보타닉 가든\n생화 케이크",
+    tagline:     '"자연이 선물한 가장 아름다운 장식"',
+    visual:      "🌿",
+    visualBg:    "#eef5ec",
+    description: "당신은 자연의 아름다움을 사랑하는 보타닉 감성의 소유자입니다. 유칼립투스, 와일드플라워, 허브류가 케이크를 감싸 흐르는 가든 스타일 케이크가 당신의 싱그러운 웨딩을 완성해 줄 거예요.",
+    why:         "'자연스럽다'는 것이 얼마나 아름다울 수 있는지 보여주는 케이크예요. 억지스럽지 않은 꽃과 그린의 흐름이 따뜻하고 생동감 넘치는 분위기를 만들어 냅니다. 가든 웨딩·야외 스몰 웨딩에 최적.",
+    flowers:     ["🌿 유칼립투스", "🌸 와일드플라워", "🍃 허브잎", "🌾 팜스"],
+    spec:        "싱글~2단  ·  내추럴 크림 베이스  ·  그린·화이트 가든 어레인지",
+    barColor:    "#7a9a7a"
+  },
+  moody: {
+    typeLabel:   "딥 무드 아트 타입",
+    title:       "딥 무드\n생화 케이크",
+    tagline:     '"감각적인 어둠 속에 피어난 꽃"',
+    visual:      "🍷",
+    visualBg:    "#f5f0f5",
+    description: "당신은 남들과 다른 독창적인 아름다움을 추구하는 아트 감성의 소유자입니다. 딥 버건디, 다크 플럼 생화를 크림 위에 조각처럼 배치한 무드 케이크가 당신만의 웨딩을 완성해 줄 거예요.",
+    why:         "기억에 남는 웨딩을 원한다면 이 케이크가 정답이에요. 어둡고 깊은 색감의 생화가 만드는 극적인 대비는 하객의 눈길을 단번에 사로잡을 거예요. 강렬한 개성을 원하는 커플에게 완벽한 선택.",
+    flowers:     ["🌹 딥 버건디 장미", "💜 라벤더", "🍷 다크 달리아", "🖤 블랙바카라"],
+    spec:        "싱글~2단  ·  다크 베이지 크림 베이스  ·  딥 컬러 생화 아트 배치",
+    barColor:    "#9a6a9a"
+  }
+};
+
+const TYPE_NAMES = {
+  classic: "클래식",
+  modern:  "모던",
+  botanic: "보타닉",
+  moody:   "무드"
+};
+
+// ════════════════════════════════════
+// STATE
+// ════════════════════════════════════
+let cur = 0;
+let scores = { classic: 0, modern: 0, botanic: 0, moody: 0 };
+
+// ════════════════════════════════════
+// SCREEN CONTROL
+// ════════════════════════════════════
+function showScreen(id) {
+  ['s-intro','s-quiz','s-result'].forEach(s =>
+    document.getElementById(s).classList.add('hidden')
+  );
+  const el = document.getElementById(id);
+  el.classList.remove('hidden');
+  el.style.animation = 'none';
+  el.offsetHeight; // reflow
+  el.style.animation = '';
+}
+
+// ════════════════════════════════════
+// QUIZ FLOW
+// ════════════════════════════════════
+function startQuiz() {
+  cur = 0;
+  scores = { classic: 0, modern: 0, botanic: 0, moody: 0 };
+  showScreen('s-quiz');
+  renderQ();
+}
+
+function renderQ() {
+  const q = QUESTIONS[cur];
+  const total = QUESTIONS.length;
+  const pct = ((cur + 1) / total) * 100;
+
+  document.getElementById('p-num').textContent = `${cur + 1} / ${total}`;
+  document.getElementById('p-fill').style.width = pct + '%';
+
+  // Dots
+  document.getElementById('dots').innerHTML =
+    QUESTIONS.map((_, i) => {
+      let cls = 'dot';
+      if (i < cur) cls += ' done';
+      else if (i === cur) cls += ' current';
+      return `<div class="${cls}"></div>`;
+    }).join('');
+
+  // Animate out then in
+  const area = document.getElementById('q-area');
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(14px)';
+
+  setTimeout(() => {
+    area.innerHTML = `
+      <span class="q-emoji">${q.emoji}</span>
+      <h2 class="q-text">${q.text.replace('\n', '<br>')}</h2>
+      <p class="q-hint">${q.hint}</p>
+      <div class="choices">
+        ${q.choices.map((c, i) => `
+          <button class="choice" onclick="pick('${c.type}')">
+            <span class="choice-alpha">${['A','B','C','D'][i]}</span>
+            <span class="choice-ico">${c.ico}</span>
+            <span class="choice-label">${c.text}</span>
+          </button>
+        `).join('')}
+      </div>`;
+
+    area.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+    area.style.opacity = '1';
+    area.style.transform = 'translateY(0)';
+  }, 60);
+}
+
+function pick(type) {
+  scores[type]++;
+  cur++;
+
+  if (cur >= QUESTIONS.length) {
+    showResult();
+    return;
+  }
+
+  const area = document.getElementById('q-area');
+  area.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+  area.style.opacity = '0';
+  area.style.transform = 'translateX(-14px)';
+  setTimeout(renderQ, 240);
+}
+
+// ════════════════════════════════════
+// RESULT
+// ════════════════════════════════════
+function showResult() {
+  // Find winner (ties broken by order: classic > modern > botanic > moody)
+  const order = ['classic','modern','botanic','moody'];
+  const winner = order.reduce((a, b) => scores[a] >= scores[b] ? a : b);
+  const r = RESULTS[winner];
+  const maxScore = QUESTIONS.length;
+
+  // Score bars HTML
+  const scoreBars = order.map(t => {
+    const pct = (scores[t] / maxScore) * 100;
+    const isWinner = t === winner;
+    return `
+      <div class="score-row">
+        <span class="score-name">${TYPE_NAMES[t]}</span>
+        <div class="score-track">
+          <div class="score-bar" style="width:${pct}%;background:${isWinner ? RESULTS[t].barColor : '#c8c0bc'}"></div>
+        </div>
+        <span class="score-val">${scores[t]}/${maxScore}</span>
+      </div>`;
+  }).join('');
+
+  document.getElementById('r-area').innerHTML = `
+    <div class="r-card">
+
+      <!-- TOP -->
+      <div class="r-card-top" style="background:${r.visualBg}">
+        <div class="r-badge">나의 웨딩케이크 타입</div>
+        <div class="r-visual" style="background:${r.visualBg}">${r.visual}</div>
+        <div class="r-type">${r.typeLabel}</div>
+        <h2 class="r-title">${r.title.replace('\n','<br>')}</h2>
+        <p class="r-tagline">${r.tagline}</p>
+      </div>
+
+      <hr class="r-divider">
+
+      <!-- BODY -->
+      <div class="r-body">
+
+        <div class="r-section">
+          <div class="r-label">✦ 나의 케이크 스타일</div>
+          <p class="r-desc">${r.description}</p>
+        </div>
+
+        <div class="r-section">
+          <div class="r-label">✦ 추천 이유</div>
+          <div class="r-why">${r.why}</div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-label">✦ 추천 생화</div>
+          <div class="r-flowers">
+            ${r.flowers.map(f => `<span class="r-flower">${f}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-label">✦ 케이크 스펙</div>
+          <div class="r-spec">${r.spec}</div>
+        </div>
+
+        <div class="r-section">
+          <div class="r-label">✦ 취향 분석</div>
+          <div class="r-scores">${scoreBars}</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <p>
+        요르매플라워에서<br>
+        <strong>${r.title.replace('\n', ' ')}</strong>을<br>
+        직접 상담하고 제작해 드려요 🌸
+      </p>
+      <button class="btn-cta" onclick="openModal()">상담 문의하기 →</button>
+    </div>
+
+    <button class="btn-retry" onclick="startQuiz()">↺ 처음부터 다시 테스트하기</button>
+  `;
+
+  showScreen('s-result');
+
+  // Animate score bars in after render
+  setTimeout(() => {
+    document.querySelectorAll('.score-bar').forEach(b => {
+      const w = b.style.width;
+      b.style.width = '0';
+      requestAnimationFrame(() => { b.style.width = w; });
+    });
+  }, 200);
+}
+
+// ════════════════════════════════════
+// MODAL
+// ════════════════════════════════════
+function openModal() {
+  document.getElementById('modal').classList.remove('hidden');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.add('hidden');
+  }
+}
+</script>
+</body>
+</html>
