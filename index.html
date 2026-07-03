@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>그녀에게 어울리는 꽃 테스트 — 요르매플라워</title>
+<title>그녀에게 어울리는 꽃 테스트 — yorrmae flower & dessert</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   /* ══════════ TOKENS ══════════ */
@@ -206,10 +206,14 @@
   }
   .modal { background: var(--white); border-radius: 16px; padding: 36px 28px; max-width: 360px; width: 100%; text-align: center; }
   .modal-icon { font-size: 40px; margin-bottom: 16px; display: block; }
-  .modal h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 8px; }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.4; margin-bottom: 8px; }
   .modal p { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 20px; }
-  .modal-contact { background: var(--cream); border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-  .modal-contact p { margin: 0; font-size: 13px; }
+  .modal-contact {
+    display: block; background: var(--cream); border-radius: 10px; padding: 16px; margin-bottom: 12px;
+    text-decoration: none; color: inherit; border: 1.5px solid transparent; transition: border-color 0.2s, background 0.2s;
+  }
+  .modal-contact:hover { border-color: var(--brown); background: var(--beige); }
+  .modal-contact p { margin: 0; font-size: 13px; color: var(--mid); }
   .modal-contact strong { color: var(--brown-dark); font-size: 14px; display: block; margin-bottom: 4px; }
   .modal-close { font-size: 13px; color: var(--light); text-decoration: underline; background: none; border: none; cursor: pointer; margin-top: 8px; }
 
@@ -239,7 +243,7 @@
      ════════════════════════════════════ -->
 <div class="screen" id="s-intro">
   <div class="brand">
-    <span class="brand-logo">Yormae Flower</span>
+    <span class="brand-logo">yorrmae flower & dessert</span>
     <div class="brand-rule"><span>🌸</span></div>
     <span class="brand-sub">선물 컨시어지 · 생화케이크 &amp; 플라워</span>
   </div>
@@ -248,13 +252,13 @@
     <div class="intro-visual">🌸</div>
     <h1 class="intro-title">그녀에게 어울리는<br><em>꽃</em>을 찾아드립니다</h1>
     <p class="intro-desc">
-      10개의 질문으로, 그녀에게 가장 잘 어울리는 꽃을 찾아드립니다.<br>
+      5개의 질문으로, 그녀에게 가장 잘 어울리는 꽃을 찾아드립니다.<br>
       작은 습관과 취향 속에 그녀와 가장 닮은 꽃이 숨어있습니다.<br>
       그녀를 떠올리며 편하게 답해보세요.
     </p>
     <div class="intro-chips">
-      <span class="chip">🕐 약 3분 소요</span>
-      <span class="chip">❓ 질문 10개</span>
+      <span class="chip">🕐 약 1분 소요</span>
+      <span class="chip">❓ 질문 5개</span>
       <span class="chip">🌸 꽃 유형 5가지</span>
     </div>
     <button class="btn-primary" onclick="startQuiz()">테스트 시작하기 →</button>
@@ -266,16 +270,16 @@
      ════════════════════════════════════ -->
 <div class="screen hidden" id="s-quiz">
   <div class="brand">
-    <span class="brand-logo">Yormae Flower</span>
+    <span class="brand-logo">yorrmae flower & dessert</span>
     <div class="brand-rule"><span>🌸</span></div>
   </div>
 
   <div class="progress-wrap">
     <div class="progress-meta">
       <span>Progress</span>
-      <strong id="p-num">1 / 10</strong>
+      <strong id="p-num">1 / 5</strong>
     </div>
-    <div class="progress-track"><div class="progress-fill" id="p-fill" style="width:10%"></div></div>
+    <div class="progress-track"><div class="progress-fill" id="p-fill" style="width:20%"></div></div>
   </div>
 
   <div id="q-area"></div>
@@ -287,7 +291,7 @@
      ════════════════════════════════════ -->
 <div class="screen hidden" id="s-result">
   <div class="brand">
-    <span class="brand-logo">Yormae Flower</span>
+    <span class="brand-logo">yorrmae flower & dessert</span>
     <div class="brand-rule"><span>🌸</span></div>
   </div>
   <div id="r-area"></div>
@@ -299,26 +303,26 @@
 <div class="modal-overlay hidden" id="modal" onclick="closeModal(event)">
   <div class="modal">
     <span class="modal-icon">🌸</span>
-    <h3>요르매플라워 주문 문의</h3>
-    <p>결과 화면을 캡처해서 아래 채널로<br>연락 주시면 그녀를 위한 꽃다발·케이크를<br>바로 준비해 드려요!</p>
-    <div class="modal-contact">
-      <strong>📱 카카오톡 채널</strong>
-      <p>@요르매플라워</p>
-    </div>
-    <div class="modal-contact">
-      <strong>📸 인스타그램 DM</strong>
-      <p>@yormae_flower</p>
-    </div>
+    <h3>yorrmae flower &amp; dessert<br>주문 문의</h3>
+    <p>아래에서 바로 예약하시거나<br>인스타그램으로 문의해 주시면<br>그녀를 위한 꽃다발·케이크를 준비해 드려요!</p>
+    <a class="modal-contact" href="https://m.booking.naver.com/booking/6/bizes/174896?theme=place&entry=pll&lang=ko&area=pll" target="_blank" rel="noopener">
+      <strong>📅 네이버 예약</strong>
+      <p>바로 예약하러 가기 →</p>
+    </a>
+    <a class="modal-contact" href="https://www.instagram.com/yorrmaeflower/" target="_blank" rel="noopener">
+      <strong>📸 인스타그램</strong>
+      <p>@yorrmaeflower</p>
+    </a>
     <button class="modal-close" onclick="document.getElementById('modal').classList.add('hidden')">닫기</button>
   </div>
 </div>
 
 <script>
 // ════════════════════════════════════
-// QUIZ DATA — 질문 10개 × 선택지 4개
+// QUIZ DATA — 질문 5개 × 선택지 4개
 // 그녀를 떠올리며 답하는 질문. 선택지마다 flower 하나에 점수 +1.
 // 꽃 5종이 문항마다 4자리를 채우도록 설계 (한 문항당 1종은 쉬어가며,
-// 10문항 동안 각 꽃이 정확히 8번씩 등장 → 균형 있는 매칭).
+// 5문항 동안 각 꽃이 정확히 4번씩 등장 → 균형 있는 매칭).
 // ════════════════════════════════════
 const QUESTIONS = [
   {
@@ -363,61 +367,6 @@ const QUESTIONS = [
       { ico: "🥹", text: "\"날 생각해서 골랐구나\" 싶은 마음", flower: "hydrangea" },
       { ico: "✨", text: "평소 안 써봤던 새로운 것", flower: "freesia" },
       { ico: "🎀", text: "포장, 카드까지 세심하게 신경 쓴 것", flower: "lisianthus" }
-    ]
-  },
-  {
-    emoji: "👥",
-    text: "친구들 사이에서\n그녀는 대체로 이런 사람이에요",
-    hint: "가장 가까운 모습을 골라보세요",
-    choices: [
-      { ico: "👑", text: "모임을 리드하는 확실한 존재감", flower: "rose" },
-      { ico: "🤝", text: "다들 편하게 만들어주는 다정한 사람", flower: "hydrangea" },
-      { ico: "🎈", text: "분위기를 밝게 만드는 텐션 담당", flower: "freesia" },
-      { ico: "💬", text: "한 명 한 명 깊게 챙기는 사람", flower: "lisianthus" }
-    ]
-  },
-  {
-    emoji: "🎬",
-    text: "그녀가 좋아하는\n영화나 드라마 장르는?",
-    hint: "즐겨보는 콘텐츠를 떠올려 보세요",
-    choices: [
-      { ico: "🍵", text: "잔잔한 힐링물", flower: "peony" },
-      { ico: "💕", text: "로맨스, 멜로", flower: "rose" },
-      { ico: "🏡", text: "가족·우정을 다루는 따뜻한 이야기", flower: "hydrangea" },
-      { ico: "🗺️", text: "여행, 모험을 다루는 이야기", flower: "freesia" }
-    ]
-  },
-  {
-    emoji: "💭",
-    text: "그녀에게 힘든 일이 생겼을 때\n가장 먼저 하는 행동은?",
-    hint: "평소 그녀의 대처 방식을 떠올려 보세요",
-    choices: [
-      { ico: "🛋️", text: "혼자 생각할 시간을 갖는다", flower: "peony" },
-      { ico: "📣", text: "바로 감정을 표현하고 이야기한다", flower: "rose" },
-      { ico: "☎️", text: "주변 사람들에게 먼저 물어본다", flower: "hydrangea" },
-      { ico: "📓", text: "조용히 일기를 쓰거나 생각을 정리한다", flower: "lisianthus" }
-    ]
-  },
-  {
-    emoji: "🛋️",
-    text: "그녀의 방(또는 책상)은\n어떤 분위기인가요?",
-    hint: "그녀의 공간을 떠올려 보세요",
-    choices: [
-      { ico: "🤍", text: "심플하고 정돈된 아이보리 톤", flower: "peony" },
-      { ico: "🎨", text: "포인트 컬러가 확실한 개성 있는 공간", flower: "rose" },
-      { ico: "🧸", text: "여행 기념품, 소품이 많은 공간", flower: "freesia" },
-      { ico: "🕊️", text: "작은 소품 하나하나 의미가 담긴 공간", flower: "lisianthus" }
-    ]
-  },
-  {
-    emoji: "🌧️",
-    text: "그녀가 스트레스를\n푸는 방법은?",
-    hint: "그녀만의 회복 방식을 떠올려 보세요",
-    choices: [
-      { ico: "🛁", text: "아무것도 안 하고 푹 쉰다", flower: "peony" },
-      { ico: "🗣️", text: "친한 사람들과 수다를 떤다", flower: "hydrangea" },
-      { ico: "✈️", text: "새로운 곳으로 훌쩍 떠난다", flower: "freesia" },
-      { ico: "🚶", text: "혼자 조용히 산책하거나 정리한다", flower: "lisianthus" }
     ]
   },
   {
@@ -688,11 +637,11 @@ function showResult() {
 
     <div class="philosophy">
       <p>"꽃은 사람을 닮고,<br>케이크는 마음을 닮는다"</p>
-      <span>— YORMAE FLOWER —</span>
+      <span>— YORRMAE FLOWER & DESSERT —</span>
     </div>
 
     <div class="cta-box">
-      <p>지금 확인한 <strong>${r.name} 꽃다발 &amp; 케이크</strong>,<br>요르매플라워에서 그대로 주문할 수 있어요</p>
+      <p>지금 확인한 <strong>${r.name} 꽃다발 &amp; 케이크</strong>,<br>yorrmae flower &amp; dessert에서 그대로 주문할 수 있어요</p>
       <div class="btn-row">
         <button class="btn-cta" onclick="openModal()">주문하기 →</button>
         <button class="btn-share" id="btn-share" onclick="copyResult()">📋 결과 공유하기</button>
@@ -740,9 +689,9 @@ ${r.tagline}
 추천 선물: ${r.bouquetName} · ${r.cakeName}
 
 "꽃은 사람을 닮고, 케이크는 마음을 닮는다"
-— 요르매플라워 —
+— yorrmae flower & dessert —
 
-너의 그녀는 어떤 꽃일까? → 요르매플라워에서 테스트 해보기`;
+너의 그녀는 어떤 꽃일까? → yorrmae flower & dessert에서 테스트 해보기`;
 
   const btn = document.getElementById('btn-share');
   const original = btn.textContent;
